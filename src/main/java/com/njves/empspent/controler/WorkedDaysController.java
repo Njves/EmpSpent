@@ -2,6 +2,7 @@ package com.njves.empspent.controler;
 
 import com.njves.empspent.model.Database;
 import com.njves.empspent.model.WorkDay;
+import com.njves.empspent.model.WorkDayQueryAdapter;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -18,21 +19,21 @@ public class WorkedDaysController implements Initializable {
     public ListView<WorkDay> listView;
     public ListView<String> listViewStat;
 
+    WorkDayQueryAdapter workDayQueryAdapter = new WorkDayQueryAdapter();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         listView.setCellFactory(new WorkDayCellFactory());
 
-        buttonMonth.setOnMouseClicked(event -> {
-            setWorkDays(Database.getInstance().getWorkingDays(new GregorianCalendar().get(Calendar.MONTH) + 1));
-        });
-        buttonQuarter.setOnMouseClicked(event -> {
-
-        });
-
+        buttonMonth.setOnMouseClicked(event -> setWorkDays(workDayQueryAdapter.getByMonthInterval(new GregorianCalendar().get(Calendar.MONTH) + 1, new GregorianCalendar().get(Calendar.MONTH) + 1)));
+        buttonQuarter.setOnMouseClicked(event -> setWorkDays(workDayQueryAdapter.getByMonthInterval(new GregorianCalendar().get(Calendar.MONTH) + 1, new GregorianCalendar().get(Calendar.MONTH) + 1 + 3)));
+        buttonHalfYear.setOnMouseClicked(event -> setWorkDays(workDayQueryAdapter.getByMonthInterval(new GregorianCalendar().get(Calendar.MONTH) + 1, new GregorianCalendar().get(Calendar.MONTH) + 1 + 6)));
+        buttonYear.setOnMouseClicked(event -> setWorkDays(workDayQueryAdapter.getByYearInterval(new GregorianCalendar().get(Calendar.YEAR), new GregorianCalendar().get(Calendar.YEAR))));
     }
 
     private void setWorkDays(List<WorkDay> workDayList) {
+        listView.getItems().clear();
+        listViewStat.getItems().clear();
         listView.getItems().addAll(workDayList);
 
         HashMap<String, Integer> statMapWorked = new HashMap<>();

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SpecialityQuery extends Query<Speciality>{
     @Override
-    List<Speciality> select() {
+    public List<Speciality> select() {
         List<Speciality> specialities = new ArrayList<>();
         try {
             ResultSet resultSet = database.getConnection().createStatement().executeQuery("SELECT * FROM speciality");
@@ -25,12 +25,12 @@ public class SpecialityQuery extends Query<Speciality>{
     }
 
     @Override
-    List<Speciality> select(Speciality param) {
+    public List<Speciality> select(Speciality param) {
         return null;
     }
 
     @Override
-    Speciality selectObject(Speciality param) {
+    public Speciality selectObject(Speciality param) {
         Speciality speciality = null;
         try {
             ResultSet resultSet = database.getConnection().createStatement().executeQuery("SELECT * FROM speciality WHERE id = " + param.getId());
@@ -43,7 +43,7 @@ public class SpecialityQuery extends Query<Speciality>{
     }
 
     @Override
-    void insert(Speciality object) {
+    public void insert(Speciality object) {
         PreparedStatement statement;
         try {
             statement = database.getConnection().prepareStatement("""
@@ -64,7 +64,7 @@ public class SpecialityQuery extends Query<Speciality>{
     }
 
     @Override
-    void update(Speciality object) {
+    public void update(Speciality object) {
 
     }
 }

@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class WindowFactory {
 
-    public  void showWindow(String fxml, HashMap<String, Object> arguments, String[] keys, WindowListener listener) {
+    public void showWindow(String fxml, HashMap<String, Object> arguments, String[] keys, WindowListener listener) {
         Stage secondStage = new Stage();
         fxml = fxml + ".fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxml));

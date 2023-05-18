@@ -3,7 +3,9 @@ package com.njves.empspent.controler;
 import com.njves.empspent.app.CustomController;
 import com.njves.empspent.app.OpenableWindow;
 import com.njves.empspent.model.Database;
+import com.njves.empspent.model.Query;
 import com.njves.empspent.model.RequiredSpeciality;
+import com.njves.empspent.model.RequiredSpecialityQuery;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,11 +24,13 @@ public class UpdateRequiredSpecialityController extends CustomController impleme
 
     public RequiredSpeciality requiredSpeciality;
 
+    private Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttonUpdate.setOnMouseClicked((event -> {
             requiredSpeciality.setEmployeesCapacity(Integer.parseInt(textFieldEmpCapacity.getText()));
-            Database.getInstance().updateRequirementSpecialityEmployeeCapacity(requiredSpeciality);
+            query.update(requiredSpeciality);
             ((Stage) (textFieldEmpCapacity.getScene().getWindow())).close();
         }));
     }

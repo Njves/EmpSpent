@@ -18,6 +18,10 @@ public class Speciality {
         this.salary = salary;
     }
 
+    public Speciality() {
+
+    }
+
     public int getId() {
         return id;
     }

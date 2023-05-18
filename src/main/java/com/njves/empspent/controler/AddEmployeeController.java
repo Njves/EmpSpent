@@ -1,9 +1,7 @@
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.Toast;
-import com.njves.empspent.model.Database;
-import com.njves.empspent.model.Employee;
-import com.njves.empspent.model.Speciality;
+import com.njves.empspent.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -29,7 +27,10 @@ public class AddEmployeeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         HashMap<String, Speciality> map = new HashMap<>();
-        for (Speciality speciality : Database.getInstance().getSpecialities()) {
+        Query<Employee> employeeQuery = new EmployeeQuery();
+        Query<Speciality> specialityQuery = new SpecialityQuery();
+
+        for (Speciality speciality : specialityQuery.select()) {
             map.put(speciality.getTitle(), speciality);
             MenuItem item = new MenuItem(speciality.getTitle());
             item.setOnAction((event -> menuSpeciality.setText(item.getText())));
@@ -45,7 +46,7 @@ public class AddEmployeeController implements Initializable {
                     " " +
                     textFieldLastName.getText().trim();
             System.out.println(menuSpeciality.getText());
-            Database.getInstance().insertEmployee(new Employee(builder, map.get(menuSpeciality.getText())));
+            employeeQuery.insert(new Employee(builder, map.get(menuSpeciality.getText())));
         }));
     }
 

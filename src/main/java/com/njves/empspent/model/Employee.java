@@ -17,6 +17,9 @@ public class Employee {
         this.speciality = speciality;
     }
 
+    public Employee() {
+    }
+
     public int getId() {
         return id;
     }

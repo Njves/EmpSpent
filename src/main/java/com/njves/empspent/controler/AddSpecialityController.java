@@ -18,10 +18,6 @@ public class AddSpecialityController implements Initializable {
     public TextField textFieldTitle;
     @FXML
     public TextField textFieldSalary;
-    @FXML
-    public Text textState;
-    @FXML
-    public Button backButton;
 
 
     @Override

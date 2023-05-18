@@ -4,7 +4,9 @@ import com.njves.empspent.Application;
 import com.njves.empspent.app.WindowFactory;
 import com.njves.empspent.app.WindowListener;
 import com.njves.empspent.model.Database;
+import com.njves.empspent.model.Query;
 import com.njves.empspent.model.RequiredSpeciality;
+import com.njves.empspent.model.RequiredSpecialityQuery;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +32,7 @@ public class RequiredSpecialityController implements Initializable {
 
     private final WindowFactory factory = new WindowFactory();
 
+    private Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,7 +58,7 @@ public class RequiredSpecialityController implements Initializable {
 
     private void updateList() {
         listView.getItems().clear();
-        List<RequiredSpeciality> list = Database.getInstance().getRequiredSpeciality();
+        List<RequiredSpeciality> list = query.select();
         list.forEach(requiredSpeciality -> listView.getItems().add(requiredSpeciality));
         listView.setCellFactory(param ->  new ListCell<>(){
             @Override

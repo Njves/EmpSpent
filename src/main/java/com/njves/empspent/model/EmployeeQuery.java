@@ -8,12 +8,15 @@ import java.util.List;
 
 public class EmployeeQuery extends Query<Employee> {
     @Override
-    List<Employee> select() {
+    public List<Employee> select() {
+        Query<Speciality> specialityQuery = new SpecialityQuery();
         List<Employee> employees = new ArrayList<>();
         try {
             ResultSet resultSet = database.getConnection().createStatement().executeQuery("SELECT * FROM employee");
             while(resultSet.next()) {
-                employees.add(new Employee(resultSet.getInt(1), resultSet.getString(2), getSpeciality(resultSet.getInt(3))));
+                Speciality speciality = new Speciality();
+                speciality.setId(resultSet.getInt(3));
+                employees.add(new Employee(resultSet.getInt(1), resultSet.getString(2), specialityQuery.selectObject(speciality)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -22,17 +25,21 @@ public class EmployeeQuery extends Query<Employee> {
     }
 
     @Override
-    List<Employee> select(Employee param) {
+    public List<Employee> select(Employee param) {
         return null;
     }
 
     @Override
-    Employee selectObject(Employee param) {
+    public Employee selectObject(Employee param) {
+        Query<Speciality> specialityQuery = new SpecialityQuery();
         Employee employee = null;
         try {
-            ResultSet resultSet = database.connection.createStatement().executeQuery("SELECT * FROM employee WHERE id = " + param.getId());
-            while (resultSet.next())
-                employee = new Employee(resultSet.getInt(1), resultSet.getString(2), getSpeciality(resultSet.getInt(3)));
+            ResultSet resultSet = database.getConnection().createStatement().executeQuery("SELECT * FROM employee WHERE id = " + param.getId());
+            while (resultSet.next()) {
+                Speciality speciality = new Speciality();
+                speciality.setId(resultSet.getInt(3));
+                employee = new Employee(resultSet.getInt(1), resultSet.getString(2), specialityQuery.selectObject(speciality));
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -40,10 +47,10 @@ public class EmployeeQuery extends Query<Employee> {
     }
 
     @Override
-    void insert(Employee object) {
+    public void insert(Employee object) {
         PreparedStatement statement;
         try {
-            statement = database.connection.prepareStatement("""
+            statement = database.getConnection().prepareStatement("""
             INSERT INTO employee(name, speciality) VALUES(?, ?)
             """);
 
@@ -57,7 +64,7 @@ public class EmployeeQuery extends Query<Employee> {
     }
 
     @Override
-    void update(Employee object) {
+    public void update(Employee object) {
 
     }
 }
