@@ -11,18 +11,22 @@ import java.util.HashMap;
 
 public class WindowFactory {
 
-    public void showWindow(HashMap<String, Object> arguments, String[] keys, WindowListener listener) {
+    public  void showWindow(String fxml, HashMap<String, Object> arguments, String[] keys, WindowListener listener) {
         Stage secondStage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("upd-req.fxml"));
+        fxml = fxml + ".fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource(fxml));
         try {
             Scene scene = new Scene(fxmlLoader.load());
             secondStage.setTitle("Изменить");
             secondStage.setScene(scene);
-            UpdateRequiredSpecialityController controller = fxmlLoader.getController();
+            CustomController controller = fxmlLoader.getController();
             controller.setArguments(arguments, keys);
             secondStage.setOnCloseRequest((eventClose -> {
                 listener.onEvent();
             }));
+            secondStage.setOnHiding(event -> {
+                listener.onEvent();
+            });
             secondStage.show();
 
         } catch (IOException e) {

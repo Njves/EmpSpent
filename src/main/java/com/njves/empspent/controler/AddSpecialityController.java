@@ -28,8 +28,9 @@ public class AddSpecialityController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addButton.setOnMouseClicked((event -> {
             if(!validate()) return;
-            Database.getInstance().insertSpeciality(new Speciality(textFieldTitle.getText(),
+            Database.getInstance().insertSpeciality(new Speciality(textFieldTitle.getText().trim(),
                     Double.parseDouble(textFieldSalary.getText())));
+
         }));
     }
 

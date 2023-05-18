@@ -26,10 +26,10 @@ import java.util.ResourceBundle;
 public class RequiredSpecialityController implements Initializable {
     @FXML
     public ListView<RequiredSpeciality> listView;
-    public Button buttonBack;
     public Button buttonAdd;
 
     private final WindowFactory factory = new WindowFactory();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -40,13 +40,17 @@ public class RequiredSpecialityController implements Initializable {
             if(listView.getSelectionModel().getSelectedItems().size() > 0) {
                 requiredSpeciality = listView.getSelectionModel().getSelectedItems().get(0);
             }
+            if(requiredSpeciality == null) {
+                return;
+            }
             HashMap<String, Object> map = new HashMap<>();
             String[] key = new String[]{"requiredSpeciality"};
             map.put(key[0], requiredSpeciality);
-            factory.showWindow(map, key, this::updateList);
-
-
+            factory.showWindow("upd-req", map, key, this::updateList);
         }));
+
+        buttonAdd.setOnMouseClicked(event -> factory.showWindow("add-req",null, null, this::updateList));
+
     }
 
     private void updateList() {

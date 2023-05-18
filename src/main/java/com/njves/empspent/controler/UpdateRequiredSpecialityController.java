@@ -1,5 +1,6 @@
 package com.njves.empspent.controler;
 
+import com.njves.empspent.app.CustomController;
 import com.njves.empspent.app.OpenableWindow;
 import com.njves.empspent.model.Database;
 import com.njves.empspent.model.RequiredSpeciality;
@@ -7,12 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-public class UpdateRequiredSpecialityController implements Initializable, OpenableWindow {
+public class UpdateRequiredSpecialityController extends CustomController implements Initializable {
     @FXML
     public TextField textFieldEmpCapacity;
     @FXML
@@ -25,6 +27,7 @@ public class UpdateRequiredSpecialityController implements Initializable, Openab
         buttonUpdate.setOnMouseClicked((event -> {
             requiredSpeciality.setEmployeesCapacity(Integer.parseInt(textFieldEmpCapacity.getText()));
             Database.getInstance().updateRequirementSpecialityEmployeeCapacity(requiredSpeciality);
+            ((Stage) (textFieldEmpCapacity.getScene().getWindow())).close();
         }));
     }
 

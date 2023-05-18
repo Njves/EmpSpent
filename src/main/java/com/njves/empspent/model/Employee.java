@@ -7,6 +7,11 @@ public class Employee {
     private String name;
     private Speciality speciality;
 
+    public Employee(int id, String name, Speciality speciality) {
+        this.id = id;
+        this.name = name;
+        this.speciality = speciality;
+    }
     public Employee(String name, Speciality speciality) {
         this.name = name;
         this.speciality = speciality;

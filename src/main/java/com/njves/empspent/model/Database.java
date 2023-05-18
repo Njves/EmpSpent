@@ -1,11 +1,12 @@
 package com.njves.empspent.model;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Database {
-    private static Connection connection;
+    private Connection connection;
     private static final String empTable = "employee";
     private static final String specTable = "speciality";
     private static Database instance;
@@ -16,6 +17,10 @@ public class Database {
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     public static Database getInstance() {
@@ -50,6 +55,7 @@ public class Database {
         statement.execute("CREATE TABLE IF NOT EXISTS working_days(id INTEGER PRIMARY KEY," +
                 "emp_id INTEGER NOT NULL," +
                 "work_day DATE NOT NULL," +
+                "is_work INTEGER NOT NULL CHECK(is_work in (0, 1))," +
                 "FOREIGN KEY(emp_id) REFERENCES employees(id))");
     }
 
@@ -118,6 +124,18 @@ public class Database {
         return speciality;
     }
 
+    public Employee getEmployee(int id) {
+        Employee employee = null;
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM employee WHERE id = " + id);
+            while (resultSet.next())
+                employee = new Employee(resultSet.getInt(1), resultSet.getString(2), getSpeciality(resultSet.getInt(3)));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employee;
+    }
+
 
     public List<RequiredSpeciality> getRequiredSpeciality() {
         List<RequiredSpeciality> specialities = new ArrayList<>();
@@ -147,6 +165,78 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Обновил empCapacitu: " + speciality);
+        System.out.println("Обновил empCapacity: " + speciality);
+    }
+
+    public void addRequirementSpeciality(RequiredSpeciality speciality) throws SQLException {
+        PreparedStatement statement;
+        statement = connection.prepareStatement("""
+            INSERT INTO required_spec(spec_id, emp_capacity) VALUES (?, ?)
+            """);
+        statement.setInt(1, speciality.getSpeciality().getId());
+        statement.setInt(2, speciality.getEmployeesCapacity());
+        statement.executeUpdate();
+
+        System.out.println("Добавил новую требуемую специальность: " + speciality);
+    }
+
+    public void addWorkDay(WorkDay workDay) {
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("""
+            INSERT INTO working_days(emp_id, work_day, is_work) VALUES (?, ?, ?)
+            """);
+            statement.setInt(1, workDay.getEmployee().getId());
+            statement.setString(2, workDay.getDate().toString());
+            statement.setBoolean(3, workDay.isWorked());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Добавил новую отметку рабочего дня: " + workDay);
+    }
+
+    public List<Employee> getEmployees() {
+        List<Employee> employees = new ArrayList<>();
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM employee");
+            while(resultSet.next()) {
+                employees.add(new Employee(resultSet.getInt(1), resultSet.getString(2), getSpeciality(resultSet.getInt(3))));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return employees;
+    }
+
+    public List<WorkDay> getWorkingDays() {
+        List<WorkDay> workDays = new ArrayList<>();
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM working_days");
+            while(resultSet.next()) {
+                workDays.add(new WorkDay(resultSet.getInt(1), getEmployee(resultSet.getInt(2)), LocalDate.parse(resultSet.getString(3)), resultSet.getBoolean(4)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return workDays;
+    }
+
+    public List<WorkDay> getWorkingDays(int month) {
+        List<WorkDay> workDays = new ArrayList<>();
+        try {
+            String strMonth = "0" + month;
+            if (month >= 10) {
+                strMonth = String.valueOf(month);
+            }
+            ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM working_days WHERE strftime('%m', work_day) = '" + strMonth + "'");
+            System.out.println("SELECT * FROM working_days WHERE strftime('%m', work_day) = '" + strMonth + "'");
+            while(resultSet.next()) {
+                workDays.add(new WorkDay(resultSet.getInt(1), getEmployee(resultSet.getInt(2)), LocalDate.parse(resultSet.getString(3)), resultSet.getBoolean(4)));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return workDays;
     }
 }
