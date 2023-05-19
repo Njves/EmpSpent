@@ -1,6 +1,5 @@
 package com.njves.empspent.controler;
 
-import com.njves.empspent.model.Database;
 import com.njves.empspent.model.WorkDay;
 import com.njves.empspent.model.WorkDayQueryAdapter;
 import javafx.fxml.Initializable;
@@ -41,10 +40,10 @@ public class WorkedDaysController implements Initializable {
         HashSet<String> namesList = new HashSet<>();
         workDayList.forEach(workDay -> namesList.add(workDay.getEmployee().getName()));
         namesList.forEach(name -> {
-            WorkDay workedMin = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(WorkDay::isWorked).min(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).get();
-            WorkDay workedMax = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(WorkDay::isWorked).max(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).get();
-            WorkDay notWorkedMin = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(workDay -> !workDay.isWorked()).min(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).get();
-            WorkDay notWorkedMax = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(workDay -> !workDay.isWorked()).max(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).get();
+            WorkDay workedMin = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(WorkDay::isWorked).min(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).orElse(null);
+            WorkDay workedMax = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(WorkDay::isWorked).max(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).orElse(null);
+            WorkDay notWorkedMin = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(workDay -> !workDay.isWorked()).min(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).orElse(null);
+            WorkDay notWorkedMax = workDayList.stream().filter(workDay -> workDay.getEmployee().getName().equals(name)).filter(workDay -> !workDay.isWorked()).max(Comparator.comparingInt(o -> o.getDate().getDayOfMonth())).orElse(null);
             statMapWorked.put(name, workedMax.getDate().getDayOfMonth() - workedMin.getDate().getDayOfMonth() + 1);
             statMapNotWorked.put(name, notWorkedMax.getDate().getDayOfMonth() - notWorkedMin.getDate().getDayOfMonth() + 1);
         });

@@ -1,8 +1,6 @@
 package com.njves.empspent.controler;
 
-import com.njves.empspent.model.Database;
-import com.njves.empspent.model.Employee;
-import com.njves.empspent.model.WorkDay;
+import com.njves.empspent.model.*;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,14 +23,15 @@ public class AddWorkDayController implements Initializable {
     List<Employee> employees;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        employees = Database.getInstance().getEmployees();
+        Query<Employee> employeeQuery = new EmployeeQuery();
+        Query<WorkDay> workDayQuery = new WorkDayQueryAdapter();
+        employees = employeeQuery.select();
         choiceBox.setItems(FXCollections.observableList(employees));
         choiceBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Employee object) {
                 if(object == null)
                     return "";
-
                 return object.getName();
             }
 
@@ -44,8 +43,9 @@ public class AddWorkDayController implements Initializable {
         buttonAdd.setOnMouseClicked(event -> {
             if(!isValid())
                 return;
+
             LocalDate localDate = datePicker.getValue();
-            Database.getInstance().addWorkDay(new WorkDay(choiceBox.getValue(), localDate, checkButton.isSelected()));
+            workDayQuery.insert(new WorkDay(choiceBox.getValue(), localDate, checkButton.isSelected()));
         });
     }
 

@@ -55,7 +55,7 @@ public class EmployeeQuery extends Query<Employee> {
             """);
 
             statement.setString(1, object.getName());
-            statement.setInt(2, object.getId());
+            statement.setInt(2, object.getSpeciality().getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

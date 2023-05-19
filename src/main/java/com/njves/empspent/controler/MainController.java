@@ -1,12 +1,10 @@
 package com.njves.empspent.controler;
 
 import com.njves.empspent.Application;
-import com.njves.empspent.app.Toast;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +18,8 @@ public class MainController implements Initializable {
     public TabPane tabPane;
     public Tab tabRequirements;
     public Tab tabWork;
+    public Tab tabMoney;
 
-    private Tab selectedTab;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         HashMap<Tab, String> tabMap = new HashMap<>();
@@ -30,6 +28,7 @@ public class MainController implements Initializable {
         tabMap.put(tabWorkDays, "add-work.fxml");
         tabMap.put(tabRequirements, "req-spec.fxml");
         tabMap.put(tabWork, "worked-days.fxml");
+        tabMap.put(tabMoney, "money-calc.fxml");
         loadContentToTab(tabMap.get(tabEmployee));
         tabPane.getSelectionModel().selectedItemProperty().addListener(event -> {
             loadContentToTab(tabMap.get(tabPane.getSelectionModel().getSelectedItem()));

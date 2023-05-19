@@ -1,21 +1,16 @@
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.CustomController;
-import com.njves.empspent.app.OpenableWindow;
-import com.njves.empspent.app.Toast;
 import com.njves.empspent.model.*;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -39,8 +34,9 @@ public class AddRequiredSpecialityController extends CustomController implements
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SpecialityQuery specialityQuery = new SpecialityQuery();
         HashMap<String, Speciality> map = new HashMap<>();
-        for (Speciality speciality : Database.getInstance().getSpecialities()) {
+        for (Speciality speciality : specialityQuery.select()) {
             map.put(speciality.getTitle(), speciality);
             MenuItem item = new MenuItem(speciality.getTitle());
             item.setOnAction((event -> menuButtonSpeciality.setText(item.getText())));

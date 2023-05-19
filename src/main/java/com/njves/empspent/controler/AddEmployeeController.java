@@ -29,7 +29,7 @@ public class AddEmployeeController implements Initializable {
         HashMap<String, Speciality> map = new HashMap<>();
         Query<Employee> employeeQuery = new EmployeeQuery();
         Query<Speciality> specialityQuery = new SpecialityQuery();
-
+        System.out.println(specialityQuery.select());
         for (Speciality speciality : specialityQuery.select()) {
             map.put(speciality.getTitle(), speciality);
             MenuItem item = new MenuItem(speciality.getTitle());

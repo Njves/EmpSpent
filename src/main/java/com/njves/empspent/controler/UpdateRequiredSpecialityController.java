@@ -1,8 +1,6 @@
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.CustomController;
-import com.njves.empspent.app.OpenableWindow;
-import com.njves.empspent.model.Database;
 import com.njves.empspent.model.Query;
 import com.njves.empspent.model.RequiredSpeciality;
 import com.njves.empspent.model.RequiredSpecialityQuery;
@@ -24,7 +22,7 @@ public class UpdateRequiredSpecialityController extends CustomController impleme
 
     public RequiredSpeciality requiredSpeciality;
 
-    private Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
+    private final Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -1,27 +1,17 @@
 package com.njves.empspent.controler;
 
-import com.njves.empspent.Application;
 import com.njves.empspent.app.WindowFactory;
-import com.njves.empspent.app.WindowListener;
-import com.njves.empspent.model.Database;
 import com.njves.empspent.model.Query;
 import com.njves.empspent.model.RequiredSpeciality;
 import com.njves.empspent.model.RequiredSpecialityQuery;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import javafx.stage.Window;
-import javafx.util.Callback;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,7 +22,7 @@ public class RequiredSpecialityController implements Initializable {
 
     private final WindowFactory factory = new WindowFactory();
 
-    private Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
+    private final Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

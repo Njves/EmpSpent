@@ -2,11 +2,11 @@ package com.njves.empspent.controler;
 
 import com.njves.empspent.model.Database;
 import com.njves.empspent.model.Speciality;
+import com.njves.empspent.model.SpecialityQuery;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,9 +22,10 @@ public class AddSpecialityController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        SpecialityQuery specialityQuery = new SpecialityQuery();
         addButton.setOnMouseClicked((event -> {
             if(!validate()) return;
-            Database.getInstance().insertSpeciality(new Speciality(textFieldTitle.getText().trim(),
+            specialityQuery.insert(new Speciality(textFieldTitle.getText().trim(),
                     Double.parseDouble(textFieldSalary.getText())));
 
         }));
