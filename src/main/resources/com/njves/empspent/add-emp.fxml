@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.njves.empspent.controler.AddEmployeeController">
+   <children>
+      <TextField fx:id="textFieldName" layoutX="201.0" layoutY="168.0" prefHeight="26.0" prefWidth="198.0" promptText="Введите имя сотрудника" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="200.60000000000002" />
+       <TextField fx:id="textFieldLastName" layoutX="201.0" layoutY="209.0" prefHeight="26.0" prefWidth="198.0" promptText="Введите фамилию сотрудника" AnchorPane.leftAnchor="201.0" AnchorPane.rightAnchor="201.60000000000002" />
+       <MenuButton fx:id="menuSpeciality" layoutX="224.0" layoutY="287.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Специальность" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="225.60000000000002">
+       </MenuButton>
+       <Button fx:id="addButton" layoutX="248.0" layoutY="427.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Добавить" AnchorPane.leftAnchor="248.0" AnchorPane.rightAnchor="248.79999999999995" />
+      <VBox layoutX="96.0" layoutY="36.0" prefHeight="200.0" prefWidth="100.0" />
+   </children>
+</AnchorPane>
