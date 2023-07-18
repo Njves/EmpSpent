@@ -1,3 +1,6 @@
+/**
+ * Содержит команду запроса требуемых сотрудников
+ */
 package com.njves.empspent.model;
 
 import java.sql.PreparedStatement;
@@ -6,7 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Команда запроса требуемых сотрудников
+ */
 public class RequiredSpecialityQuery extends Query<RequiredSpeciality> {
+    /**
+     * Делает выборку всех объектов
+     * @return все объекты из выборки
+     */
     @Override
     public List<RequiredSpeciality> select() {
         Query<Speciality> specialityQuery = new SpecialityQuery();
@@ -26,16 +36,30 @@ public class RequiredSpecialityQuery extends Query<RequiredSpeciality> {
         return specialities;
     }
 
+    /**
+     * Выборка всех объектов с параметрами
+     * @param param параметры
+     * @return выборка объектов
+     */
     @Override
     public List<RequiredSpeciality> select(RequiredSpeciality param) {
         return null;
     }
 
+    /**
+     * Возвращает конкретный объект
+     * @param param параметр
+     * @return возвращает объект
+     */
     @Override
     public RequiredSpeciality selectObject(RequiredSpeciality param) {
         return null;
     }
 
+    /**
+     * Добавляет объект в бд
+     * @param object добавляемый объект
+     */
     @Override
     public void insert(RequiredSpeciality object) {
         PreparedStatement statement;
@@ -54,6 +78,10 @@ public class RequiredSpecialityQuery extends Query<RequiredSpeciality> {
         System.out.println("Добавил новую требуемую специальность: " + object);
     }
 
+    /**
+     * Обновляет объект в базе данных
+     * @param object обновляемый объект
+     */
     @Override
     public void update(RequiredSpeciality object) {
         PreparedStatement statement;

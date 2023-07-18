@@ -1,5 +1,9 @@
+/**
+Модуль содержащий собственный пользовательский контроллер
+ */
 package com.njves.empspent.app;
 
-public abstract class CustomController implements OpenableWindow {
-
-}
+/**
+ * Пользовательский контроллер реализующий управление контролером дочерних окон
+ */
+public abstract class CustomController implements OpenableWindow { }

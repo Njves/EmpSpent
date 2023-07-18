@@ -1,3 +1,6 @@
+/**
+ * модуль содержащий основной контроллер
+ */
 package com.njves.empspent.controler;
 
 import com.njves.empspent.Application;
@@ -11,15 +14,48 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер основного окна
+ */
 public class MainController implements Initializable {
+    /**
+     * таб окна добавления сотрудника
+     */
     public Tab tabEmployee;
+
+    /**
+     * таб окна добавления специальности
+     */
     public Tab tabSpeciality;
+
+    /**
+     * таб окна добавления рабочего дня
+     */
     public Tab tabWorkDays;
+
+    /**
+     * таб пейн содержащий все табы
+     */
     public TabPane tabPane;
+
+    /**
+     * таб окна добавления требуемых сотрудников
+     */
     public Tab tabRequirements;
+
+    /**
+     * таб окна добавления рабочего дня
+     */
     public Tab tabWork;
+
+    /**
+     * таб окна просмотра денег
+     */
     public Tab tabMoney;
 
+    /**
+     * Вызывается при инициализации контроллера
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         HashMap<Tab, String> tabMap = new HashMap<>();
@@ -36,6 +72,10 @@ public class MainController implements Initializable {
 
     }
 
+    /**
+     * Загружает экрна из верстки
+     * @param document файл верстки
+     */
     private void loadContentToTab(String document) {
         try {
             tabPane.getSelectionModel().getSelectedItem().setContent(FXMLLoader.load(Application.class.getResource(document)));

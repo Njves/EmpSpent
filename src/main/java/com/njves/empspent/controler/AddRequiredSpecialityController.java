@@ -1,3 +1,6 @@
+/**
+ * Модуль содеражщий контроллер окна добавлящий требуемых сотрудников
+ */
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.CustomController;
@@ -14,24 +17,43 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер диалогового окна добавляющий требуемых сотрудников
+ */
 public class AddRequiredSpecialityController extends CustomController implements Initializable {
-
-    @FXML
+    /**
+     * кнопка выбора специальности
+     */
     public MenuButton menuButtonSpeciality;
 
-    @FXML
+    /**
+     * полле ввода количество сотрудников
+     */
     public TextField textFieldEmpCapacity;
 
-    @FXML
+    /**
+     * кнопка добавления требуемой специальности
+     */
     public Button buttonAdd;
 
+    /**
+     * Команда запроса требуемых специальностей
+     */
     private final Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
 
+    /**
+     * Задает аргументы диалоговому окну
+     * @param args аргументы
+     * @param keys ключи
+     */
     @Override
     public void setArguments(HashMap<String, Object> args, String[] keys) {
 
     }
 
+    /**
+     * Вызывается при инициализации окна
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         SpecialityQuery specialityQuery = new SpecialityQuery();

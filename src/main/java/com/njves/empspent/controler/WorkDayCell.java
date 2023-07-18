@@ -1,3 +1,6 @@
+/**
+ * Модуль содеражащий класс ячейки списка
+ */
 package com.njves.empspent.controler;
 
 import com.njves.empspent.Application;
@@ -10,13 +13,34 @@ import javafx.scene.control.ListCell;
 
 import java.io.IOException;
 
+/**
+ * Ячейка списка рабочего дня
+ */
 public class WorkDayCell extends ListCell<WorkDay> {
-
+    /**
+     * лейбл даты
+     */
     public Label labelDate;
+
+    /**
+     * лейбл имена сотрудника
+     */
     public Label labelEmployee;
+
+    /**
+     * чек бокс отработал ли человек
+     */
     public CheckBox checkBoxIsWorked;
+
+    /**
+     * лейбл названия специализации
+     */
     public Label labelSpecialization;
 
+
+    /**
+     * загружает верстку
+     */
     private void loadFxml() {
         try {
             FXMLLoader loader = new FXMLLoader(Application.class.getResource("work-cell.fxml"));
@@ -28,6 +52,11 @@ public class WorkDayCell extends ListCell<WorkDay> {
         }
     }
 
+    /**
+     * вызывается про заполнение ячейки списка
+     * @param workDay рабочий день
+     * @param b пустая ли ячейка
+     */
     @Override
     protected void updateItem(WorkDay workDay, boolean b) {
         super.updateItem(workDay, b);
@@ -45,6 +74,9 @@ public class WorkDayCell extends ListCell<WorkDay> {
 
     }
 
+    /**
+     * пустой конструктор
+     */
     public WorkDayCell() {
         loadFxml();
     }

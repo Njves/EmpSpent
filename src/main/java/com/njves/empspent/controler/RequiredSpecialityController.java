@@ -1,10 +1,12 @@
+/**
+ * Модуль содеражший контроллер вывода требуемых сотрудников
+ */
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.WindowFactory;
 import com.njves.empspent.model.Query;
 import com.njves.empspent.model.RequiredSpeciality;
 import com.njves.empspent.model.RequiredSpecialityQuery;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -15,15 +17,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер окна вывода требуемых сотрудников
+ */
 public class RequiredSpecialityController implements Initializable {
-    @FXML
+    /**
+     * Список требуемых сотрудников
+     */
     public ListView<RequiredSpeciality> listView;
+
+    /**
+     * Кнопка добавления сотрудника
+     */
     public Button buttonAdd;
 
+    /**
+     * Фабрика создания окна
+     */
     private final WindowFactory factory = new WindowFactory();
 
+    /**
+     * Запрос требуемых сотрудников
+     */
     private final Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
 
+    /**
+     * функция инициализации
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateList();
@@ -46,6 +66,9 @@ public class RequiredSpecialityController implements Initializable {
 
     }
 
+    /**
+     * обновляет список
+     */
     private void updateList() {
         listView.getItems().clear();
         List<RequiredSpeciality> list = query.select();

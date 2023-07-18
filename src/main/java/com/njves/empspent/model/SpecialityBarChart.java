@@ -1,11 +1,24 @@
+/**
+ * Модуль содержащий реализацию заполнения зарплат по должностям
+ */
 package com.njves.empspent.model;
 
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Реализация заполнения зарплат по должностям
+ */
 public class SpecialityBarChart implements DataBarChart {
+    /**
+     * Задает данные в столбачтую диаграмму
+     * @param stackedBarChartMoney столбчатая диаграмма
+     * @param workDayList список рабочих дней
+     */
     @Override
     public void setData(StackedBarChart<String, Double> stackedBarChartMoney, List<WorkDay> workDayList) {
         stackedBarChartMoney.getXAxis().setLabel("Сотрудники");
@@ -15,15 +28,27 @@ public class SpecialityBarChart implements DataBarChart {
         setDataBarChart(stackedBarChartMoney, workDayList, series, series1);
         stackedBarChartMoney.getData().addAll(series, series1);
         stackedBarChartMoney.setLegendVisible(false);
+
     }
 
+    /**
+     * Заполняет серии данными
+     * @param workDay рабочий день
+     * @param series рабочая серия
+     * @param series1 не рабочая серия
+     * @param workLengthMap длина серии для конкретного сотрудника
+     */
+    @Override
+    public void fillSeries(WorkDay workDay, XYChart.Series<String, Double> series, XYChart.Series<String, Double> series1, HashMap<String, Integer> workLengthMap) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
 
-
-    public void fillSeries(WorkDay workDay, XYChart.Series<String, Double> series, XYChart.Series<String, Double> series1) {
+        int max = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         if(workDay.isWorked())
-            series.getData().add(new XYChart.Data<>(workDay.getEmployee().getSpeciality().getTitle(), workDay.getEmployee().getSpeciality().getSalary()));
+            series.getData().add(new XYChart.Data<>(workDay.getEmployee().getSpeciality().getTitle(),
+                    workDay.getEmployee().getSpeciality().getSalary() / (max - workLengthMap.get(workDay.getEmployee().getName()))));
         else
-            series1.getData().add(new XYChart.Data<>(workDay.getEmployee().getSpeciality().getTitle(), workDay.getEmployee().getSpeciality().getSalary()));
+            series1.getData().add(new XYChart.Data<>(workDay.getEmployee().getSpeciality().getTitle(), workDay.getEmployee().getSpeciality().getSalary() / (max - workLengthMap.get(workDay.getEmployee().getName()))));
     }
 
 

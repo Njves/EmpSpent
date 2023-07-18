@@ -1,3 +1,7 @@
+/**
+ * Модуль содеражщий контроллер окна добавлящий сотрудников
+ */
+
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.Toast;
@@ -14,16 +18,33 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер окна добавляющий сотрудников
+ */
 public class AddEmployeeController implements Initializable {
-    @FXML
+    /**
+     * поле ввода имени
+     */
     public TextField textFieldName;
-    @FXML
+
+    /**
+     * поле ввода фамилии
+     */
     public TextField textFieldLastName;
-    @FXML
+
+    /**
+     * кнопка выбора специальности сотрудника
+     */
     public MenuButton menuSpeciality;
-    @FXML
+
+    /**
+     * кнопка добавления сотрудника
+     */
     public Button addButton;
 
+    /**
+     * Вызывается при инициализации окна
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         HashMap<String, Speciality> map = new HashMap<>();
@@ -50,6 +71,10 @@ public class AddEmployeeController implements Initializable {
         }));
     }
 
+    /**
+     * валидирует поля текста
+     * @return валидны ли поля
+     */
     private boolean isValid() {
         return !textFieldName.getText().isEmpty() && !textFieldLastName.getText().isEmpty();
     }

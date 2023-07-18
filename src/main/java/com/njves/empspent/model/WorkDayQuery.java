@@ -1,3 +1,6 @@
+/**
+ * Содержит команду запроса сотрудников
+ */
 package com.njves.empspent.model;
 
 import java.sql.PreparedStatement;
@@ -7,7 +10,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * команда запроса рабочих дней
+ */
 class WorkDayQuery extends Query<WorkDay> {
+    /**
+     * Делает выборку всех объектов рабочих дней
+     * @return все объекты из выборки
+     */
     @Override
     public List<WorkDay> select() {
         Query<Employee> employeeQuery = new EmployeeQuery();
@@ -25,16 +35,30 @@ class WorkDayQuery extends Query<WorkDay> {
         return workDays;
     }
 
+    /**
+     * Выборка всех объектов с параметрами
+     * @param param параметры
+     * @return выборка объектов
+     */
     @Override
     public List<WorkDay> select(WorkDay param) {
         return null;
     }
 
+    /**
+     * Возвращает конкретный объект сотрудника
+     * @param param параметр
+     * @return возвращает объект
+     */
     @Override
     public WorkDay selectObject(WorkDay param) {
         return null;
     }
 
+    /**
+     * Добавляет объект сотрудника в бд
+     * @param object добавляемый объект
+     */
     @Override
     public void insert(WorkDay object) {
         PreparedStatement statement;
@@ -52,6 +76,10 @@ class WorkDayQuery extends Query<WorkDay> {
         System.out.println("Добавил новую отметку рабочего дня: " + object);
     }
 
+    /**
+     * Обновляет объект в базе данных
+     * @param object обновляемый объект
+     */
     @Override
     public void update(WorkDay object) {
 

@@ -1,3 +1,6 @@
+/**
+ * Модуль обновления требуемой специальности
+ */
 package com.njves.empspent.controler;
 
 import com.njves.empspent.app.CustomController;
@@ -14,16 +17,33 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+/**
+ * Контроллер обновления требуемого сотрудника
+ */
 public class UpdateRequiredSpecialityController extends CustomController implements Initializable {
-    @FXML
+    /**
+     * текстовое поле количества сотрдуников
+     */
     public TextField textFieldEmpCapacity;
-    @FXML
+
+    /**
+     * кнопка обновления
+     */
     public Button buttonUpdate;
 
+    /**
+     * текущий обновляемый объект
+     */
     public RequiredSpeciality requiredSpeciality;
 
+    /**
+     * объект запроса
+     */
     private final Query<RequiredSpeciality> query = new RequiredSpecialityQuery();
 
+    /**
+     * вызывается при инициализации
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         buttonUpdate.setOnMouseClicked((event -> {
@@ -33,11 +53,20 @@ public class UpdateRequiredSpecialityController extends CustomController impleme
         }));
     }
 
+    /**
+     * вызывается при инициализации из родительского контроллера
+     * @param requiredSpeciality передаваемый объект
+     */
     public void setRequiredSpeciality(RequiredSpeciality requiredSpeciality) {
         this.requiredSpeciality = requiredSpeciality;
         textFieldEmpCapacity.setText(String.valueOf(requiredSpeciality.getEmployeesCapacity()));
     }
 
+    /**
+     * Задает объекты в контроллере
+     * @param args аргументы
+     * @param keys ключи
+     */
     @Override
     public void setArguments(HashMap<String, Object> args, String[] keys) {
         setRequiredSpeciality((RequiredSpeciality) args.get(keys[0]));

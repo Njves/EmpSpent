@@ -1,3 +1,6 @@
+/**
+ * Модуль содержащий класс базы данных
+ */
 package com.njves.empspent.model;
 
 import java.sql.Connection;
@@ -5,10 +8,23 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Модель связи с базой данных - синглтон
+ */
 public class Database {
+    /**
+     * Объект соединения
+     */
     private Connection connection;
+
+    /**
+     * Объект текущего класса
+     */
     private static Database instance;
 
+    /**
+     * Приватный конструктор
+     */
     private Database() {
         try {
             init();
@@ -17,10 +33,18 @@ public class Database {
         }
     }
 
+    /**
+     * Возвращает соединение с базой данных
+     * @return соединение
+     */
     public Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Возвращает объект базы данных
+     * @return объект
+     */
     public static Database getInstance() {
         if(instance == null) {
             instance = new Database();
@@ -28,6 +52,11 @@ public class Database {
         return instance;
     }
 
+    /**
+     * Инициализиурет соединение
+     * @throws ClassNotFoundException выбрасывается если драйвер не найден
+     * @throws SQLException прочие ошибки SQL
+     */
     public void init() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection("jdbc:sqlite:emp.sqlite");
@@ -35,6 +64,10 @@ public class Database {
         createTable();
     }
 
+    /**
+     * Создает таблицы в базе данных
+     * @throws SQLException прочие ошибки SQL
+     */
     public void createTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("CREATE TABLE IF NOT EXISTS speciality(id INTEGER PRIMARY KEY," +
@@ -56,5 +89,4 @@ public class Database {
                 "is_work INTEGER NOT NULL CHECK(is_work in (0, 1))," +
                 "FOREIGN KEY(emp_id) REFERENCES employees(id))");
     }
-
 }

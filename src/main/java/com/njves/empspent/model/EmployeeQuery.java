@@ -1,3 +1,6 @@
+/**
+ * Содержит команду запроса сотрудников
+ */
 package com.njves.empspent.model;
 
 import java.sql.PreparedStatement;
@@ -6,7 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Команда запроса сотрудников
+ */
 public class EmployeeQuery extends Query<Employee> {
+    /**
+     * Делает выборку всех объектов сотрудников
+     * @return все объекты из выборки
+     */
     @Override
     public List<Employee> select() {
         Query<Speciality> specialityQuery = new SpecialityQuery();
@@ -24,11 +34,21 @@ public class EmployeeQuery extends Query<Employee> {
         return employees;
     }
 
+    /**
+     * Выборка всех объектов с параметрами
+     * @param param параметры
+     * @return выборка объектов
+     */
     @Override
     public List<Employee> select(Employee param) {
         return null;
     }
 
+    /**
+     * Возвращает конкретный объект сотрудника
+     * @param param параметр
+     * @return возвращает объект
+     */
     @Override
     public Employee selectObject(Employee param) {
         Query<Speciality> specialityQuery = new SpecialityQuery();
@@ -46,6 +66,10 @@ public class EmployeeQuery extends Query<Employee> {
         return employee;
     }
 
+    /**
+     * Добавляет объект сотрудника в бд
+     * @param object добавляемый объект
+     */
     @Override
     public void insert(Employee object) {
         PreparedStatement statement;
@@ -63,6 +87,10 @@ public class EmployeeQuery extends Query<Employee> {
         System.out.println("Добавил нового пользователя: " + object);
     }
 
+    /**
+     * Обновляет объект в базе данных
+     * @param object обновляемый объект
+     */
     @Override
     public void update(Employee object) {
 

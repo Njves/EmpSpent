@@ -1,7 +1,10 @@
+/**
+ * Модуль содержащий фабрику окон
+ */
+
 package com.njves.empspent.app;
 
 import com.njves.empspent.Application;
-import com.njves.empspent.controler.UpdateRequiredSpecialityController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,8 +12,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
+/**
+ * Фабрика окон
+ */
 public class WindowFactory {
 
+    /**
+     * Показывает дочерние окно
+     * @param fxml название вертки
+     * @param arguments аргументы
+     * @param keys ключи
+     * @param listener слушатель для окна
+     */
     public void showWindow(String fxml, HashMap<String, Object> arguments, String[] keys, WindowListener listener) {
         Stage secondStage = new Stage();
         fxml = fxml + ".fxml";

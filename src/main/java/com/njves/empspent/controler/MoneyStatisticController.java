@@ -1,8 +1,9 @@
+/**
+ * Модуль содеражащий класс контроллера сбора статистика по з/п сотрудников
+ */
 package com.njves.empspent.controler;
 
 import com.njves.empspent.model.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.StackedBarChart;
@@ -12,20 +13,51 @@ import javafx.scene.control.ChoiceBox;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Контроллер сбора статистика по з/п сотрудников
+ */
 public class MoneyStatisticController implements Initializable {
+    /**
+     * График зарплат
+     */
     public StackedBarChart<String, Double> stackedBarChartMoney;
+
+    /**
+     * Чойс бокс типа вывода
+     */
     public ChoiceBox<String> choiceBoxType;
+
+    /**
+     * кнопка вывода данных за месяц
+     */
     public Button buttonMonth;
+
+    /**
+     * кнопка вывода данных за квартал
+     */
     public Button buttonQuarter;
+
+    /**
+     * кнопка вывода данных за полгода
+     */
     public Button buttonHalfYear;
+
+    /**
+     * кнопка вывода данных за год
+     */
     public Button buttonYear;
+
+    /**
+     * Модель выгрузки данных
+     */
     private DataBarChart dataBarChart = new WorkMoneyBarChart();
 
+    /**
+     * Функция инициализаци контроллера
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Query<Employee> employeeQuery = new EmployeeQuery();
-        WorkDayQueryAdapter workDayQuery = new WorkDayQueryAdapter();
-        List<Employee> employees = employeeQuery.select();
+        WorkDayQueryDecorator workDayQuery = new WorkDayQueryDecorator();
         List<String> types = new ArrayList<>();
         types.add("Для всех");
         types.add("Для специальности");
@@ -49,6 +81,4 @@ public class MoneyStatisticController implements Initializable {
                 new GregorianCalendar().get(Calendar.YEAR))));
 
     }
-
-
 }

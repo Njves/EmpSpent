@@ -1,3 +1,6 @@
+/**
+ * Содержит команду запроса должностей
+ */
 package com.njves.empspent.model;
 
 import java.sql.PreparedStatement;
@@ -6,7 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Команда запроса должностей
+ */
 public class SpecialityQuery extends Query<Speciality>{
+    /**
+     * Делает выборку всех объектов должностей
+     * @return все объекты из выборки
+     */
     @Override
     public List<Speciality> select() {
         List<Speciality> specialities = new ArrayList<>();
@@ -24,11 +34,22 @@ public class SpecialityQuery extends Query<Speciality>{
         return specialities;
     }
 
+
+    /**
+     * Выборка всех объектов с параметрами
+     * @param param параметры
+     * @return выборка объектов
+     */
     @Override
     public List<Speciality> select(Speciality param) {
         return null;
     }
 
+    /**
+     * Возвращает конкретный объект должности
+     * @param param параметр
+     * @return возвращает объект
+     */
     @Override
     public Speciality selectObject(Speciality param) {
         Speciality speciality = null;
@@ -42,6 +63,10 @@ public class SpecialityQuery extends Query<Speciality>{
         return speciality;
     }
 
+    /**
+     * Добавляет объект сотрудника в бд
+     * @param object добавляемый объект
+     */
     @Override
     public void insert(Speciality object) {
         PreparedStatement statement;
@@ -63,6 +88,10 @@ public class SpecialityQuery extends Query<Speciality>{
         }
     }
 
+    /**
+     * Обновляет объект в базе данных
+     * @param object обновляемый объект
+     */
     @Override
     public void update(Speciality object) {
 

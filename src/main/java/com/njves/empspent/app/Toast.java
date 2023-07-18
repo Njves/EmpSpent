@@ -1,3 +1,6 @@
+/**
+ * Модуль содержащий класс отвечающий за всплывающие сообщения
+ */
 package com.njves.empspent.app;
 
 import javafx.animation.KeyFrame;
@@ -12,8 +15,17 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+/**
+ * Отвечает за создание всплывающих сообщений
+ */
 public final class Toast
 {
+
+    /**
+     * Создает всплывающие окно
+     * @param ownerStage текущая сцена
+     * @param toastMsg текст всплывающего сообщения
+     */
     public static void makeText(Stage ownerStage, String toastMsg)
     {
         Stage toastStage = new Stage();
