@@ -39,7 +39,7 @@ public class Speciality {
     /**
      * Параметризированный конструктор
      * @param title название
-     * @param salary зарплата
+     * @param salary зарплатаw
      */
     public Speciality(String title, Double salary) {
         this.title = title;
